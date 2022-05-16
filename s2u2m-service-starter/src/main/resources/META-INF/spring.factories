@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.s2u2m.services.core.S2u2mServiceFrameworkAutoConfigure
