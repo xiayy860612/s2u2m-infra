@@ -13,6 +13,6 @@ public class DemoGlobalExceptionHandler extends GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseBody> handleClientValidationException(ClientValidationException ex) {
         return ResponseEntity
                 .badRequest()
-                .body(new ErrorResponseBody(ex.getInfo().getCode(), this.getClass().getSimpleName() + ": " + ex.getMessage()));
+                .body(new ErrorResponseBody(ex.getCode().getValue(), this.getClass().getSimpleName() + ": " + ex.getMessage()));
     }
 }

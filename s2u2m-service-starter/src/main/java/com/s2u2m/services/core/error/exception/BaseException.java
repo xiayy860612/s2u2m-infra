@@ -1,6 +1,6 @@
 package com.s2u2m.services.core.error.exception;
 
-import com.s2u2m.services.core.error.ExceptionDetails;
+import com.s2u2m.services.core.error.ErrorCode;
 import lombok.Getter;
 
 import java.text.MessageFormat;
@@ -8,15 +8,14 @@ import java.text.MessageFormat;
 public abstract class BaseException extends RuntimeException {
 
     @Getter
-    private final transient ExceptionDetails info;
+    private final transient ErrorCode code;
 
-    protected BaseException(ExceptionDetails info, Object... args) {
-        super(MessageFormat.format(info.getPattern(), args));
-        this.info = info;
+    protected BaseException(ErrorCode code, String msgWithPattern, Object... args) {
+        this(code, null, msgWithPattern, args);
     }
 
-    protected BaseException(ExceptionDetails info, Throwable cause, Object... args) {
-        super(MessageFormat.format(info.getPattern(), args), cause);
-        this.info = info;
+    protected BaseException(ErrorCode code, Throwable cause, String msgWithPattern, Object... args) {
+        super(MessageFormat.format(msgWithPattern, args), cause);
+        this.code = code;
     }
 }
