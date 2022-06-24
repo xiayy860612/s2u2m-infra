@@ -1,6 +1,7 @@
 package com.s2u2m.services.core.security;
 
 
+import com.s2u2m.services.core.swagger.SwaggerConfig;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,9 +18,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class JwtAuthFilter extends BasicAuthenticationFilter {
-    public static final String HEADER_KEY = "Authorization";
-    public static final String TOKEN_PREFIX = "Bearer ";
-
     private JwtTokenService jwtTokenService;
 
     public JwtAuthFilter(
@@ -33,13 +31,13 @@ public class JwtAuthFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal
             (HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        String token = request.getHeader(HEADER_KEY);
-        if (!StringUtils.hasText(token) || !token.startsWith(TOKEN_PREFIX)) {
+        String token = request.getHeader(SwaggerConfig.JWT_AUTH_KEY_IN_HEADER);
+        if (!StringUtils.hasText(token) || !token.startsWith(SwaggerConfig.JWT_AUTH_TOKEN_PREFIX)) {
             chain.doFilter(request, response);
             return;
         }
 
-        token = token.replace(TOKEN_PREFIX, "").trim();
+        token = token.replace(SwaggerConfig.JWT_AUTH_TOKEN_PREFIX, "").trim();
         UserInfo userInfo = jwtTokenService.verify(token);
         // TODO: get authorities
         Collection<GrantedAuthority> authorities = Collections.emptyList();

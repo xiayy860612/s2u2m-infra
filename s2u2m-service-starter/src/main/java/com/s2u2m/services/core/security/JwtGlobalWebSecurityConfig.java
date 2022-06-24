@@ -1,5 +1,6 @@
 package com.s2u2m.services.core.security;
 
+import com.s2u2m.services.core.swagger.SwaggerConfig;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -27,7 +28,7 @@ public class JwtGlobalWebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .antMatchers("/swagger-ui/**", "/javainuse-openapi/**", "/v3/api-docs/**").permitAll()
+                .antMatchers(SwaggerConfig.JWT_HOST_URLS).permitAll()
                 .antMatchers("/error").permitAll()
                 .antMatchers(HttpMethod.POST, "/jwt/").permitAll()
                 .anyRequest().authenticated();
