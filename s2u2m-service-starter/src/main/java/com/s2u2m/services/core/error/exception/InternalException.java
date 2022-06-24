@@ -1,13 +1,13 @@
 package com.s2u2m.services.core.error.exception;
 
-import com.s2u2m.services.core.error.ExceptionDetails;
+import com.s2u2m.services.core.error.ErrorCode;
 
 public class InternalException extends BaseException {
-    public InternalException(ExceptionDetails info, Object... args) {
-        super(info, args);
+    public InternalException(ErrorCode info, String msgWithPattern, Object... args) {
+        super(info, msgWithPattern, args);
     }
 
-    public InternalException(ExceptionDetails info, Throwable cause, Object... args) {
-        super(info, cause, args);
+    public InternalException(ErrorCode info, Throwable cause, String msgWithPattern, Object... args) {
+        super(info, cause, msgWithPattern, args);
     }
 }

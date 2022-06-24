@@ -1,7 +1,7 @@
 package com.s2u2m.services.demo.controller;
 
 import com.s2u2m.services.core.error.exception.ClientValidationException;
-import com.s2u2m.services.demo.error.ErrorCode;
+import com.s2u2m.services.demo.error.DemoErrorCode;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +18,7 @@ public class ExceptionTestController {
     @GetMapping("/{id}")
     public Integer getInput(@PathVariable @Min(3) int id) {
         if (id > 10) {
-            throw new ClientValidationException(ErrorCode.INPUT_INVALID);
+            throw new ClientValidationException(DemoErrorCode.INPUT_INVALID, "id > 10");
         }
         return id;
     }
